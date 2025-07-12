@@ -9,10 +9,14 @@ interface PasswordInputProps {
  value: string;
  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
  disabled?: boolean;
+ name?: string;
+ placeholder?: string;
 }
 
 export const PasswordInput = ({
+ placeholder,
  value,
+ name,
  onChange,
  disabled,
 }: PasswordInputProps) => {
@@ -25,9 +29,10 @@ export const PasswordInput = ({
    </Label>
    <div className="relative">
     <Input
+     name={name}
      id="password"
      type={showPassword ? "text" : "password"}
-     placeholder="Enter password"
+     placeholder={placeholder ? placeholder : "Enter password"}
      value={value}
      onChange={onChange}
      className="h-12 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-blue-500 pr-12  w-full"
