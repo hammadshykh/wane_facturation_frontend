@@ -142,3 +142,20 @@ header.bg-white.border-b.px-6.py-4 {
     margin-left: 10px;
     margin-right: 20px;
 }
+
+.rounded-t-2xl {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+.h-20 {
+    height: 7rem;
+    border-radius: -4rem;
+    border-bottom-right-radius: 7rem;
+}
+.px-6 {
+    padding-left: 1.5rem;
+    padding-right: 0.5rem !important;
+
+}
