@@ -78,13 +78,18 @@ const StatsCard = ({
 
    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 relative z-10">
     <div className="space-y-2">
-    <CardTitle
-  className={`text-base font-medium text-${textColor}-600`}
-  style={{ fontFamily: 'General Sans, sans-serif' }}
->
-  {title}
-</CardTitle>
-     <div   style={{ fontFamily: 'General Sans, sans-serif' }} className="text-3xl font-bold text-gray-900 mb-2">{value}</div>
+     <CardTitle
+      className={`text-base font-medium text-${textColor}-600`}
+      style={{ fontFamily: "General Sans, sans-serif" }}
+     >
+      {title}
+     </CardTitle>
+     <div
+      style={{ fontFamily: "General Sans, sans-serif" }}
+      className="text-3xl font-bold text-gray-900 mb-2"
+     >
+      {value}
+     </div>
     </div>
 
     <div
@@ -103,7 +108,12 @@ const StatsCard = ({
      ></div>
     </div>
 
-    <p   style={{ fontFamily: 'General Sans, sans-serif' }} className="text-sm md:text-base text-gray-400">{description}</p>
+    <p
+     style={{ fontFamily: "General Sans, sans-serif" }}
+     className="text-sm md:text-base text-gray-400"
+    >
+     {description}
+    </p>
    </CardContent>
   </Card>
  );

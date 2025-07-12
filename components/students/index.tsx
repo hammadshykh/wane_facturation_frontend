@@ -1,16 +1,15 @@
 "use client";
-import { useState, useEffect } from "react";
 import { Plus, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StudentFilters } from "@/components/students/StudentFilters";
 import { StudentTable } from "@/components/students/StudentTable";
 import { StudentPagination } from "@/components/students/StudentPagination";
 import { Student, StudentStatus } from "@/types/student";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { fetchStudents } from "@/actions/student";
 
 export default function Students() {
- const [students, setStudents] = useState<Student[]>([]);
- const [loading, setLoading] = useState(false);
- const [error, setError] = useState<string | null>(null);
  const [searchTerm, setSearchTerm] = useState("");
  const [selectedStatus, setSelectedStatus] = useState<StudentStatus | "All">(
   "All"
@@ -18,26 +17,16 @@ export default function Students() {
  const [currentPage, setCurrentPage] = useState(1);
  const [rowsPerPage, setRowsPerPage] = useState(10);
 
- // Fetch students from API
- useEffect(() => {
-  const fetchStudents = async () => {
-   setLoading(true);
-   setError(null);
-   try {
-    // Replace with your actual API endpoint
-    const res = await fetch("/api/students");
-    if (!res.ok) throw new Error(`Error fetching students: ${res.statusText}`);
-    const data: Student[] = await res.json();
-    setStudents(data);
-   } catch (err: any) {
-    setError(err.message || "Unknown error");
-   } finally {
-    setLoading(false);
-   }
-  };
-
-  fetchStudents();
- }, []);
+ // Fetch students with React Query
+ const {
+  data: students = [],
+  isLoading,
+  error,
+ } = useQuery<Student[], Error>({
+  queryKey: ["students"],
+  queryFn: fetchStudents,
+  staleTime: 1000 * 60 * 5, // 5 minutes
+ });
 
  // Filter students by search term and status
  const filteredStudents = students.filter((student) => {
@@ -69,6 +58,16 @@ export default function Students() {
   // Implement view details logic
  };
 
+ const handleAddStudent = () => {
+  console.log("Add new student");
+  // Implement add student logic
+ };
+
+ const handleExport = () => {
+  console.log("Export students");
+  // Implement export logic
+ };
+
  return (
   <div className="min-h-screen bg-gray-50 flex">
    <div className="flex-1 flex flex-col">
@@ -83,11 +82,14 @@ export default function Students() {
        </div>
 
        <div className="flex items-center space-x-3">
-        <Button variant="outline" className="space-x-2">
+        <Button variant="outline" className="space-x-2" onClick={handleExport}>
          <Download className="h-4 w-4" />
          <span>Export</span>
         </Button>
-        <Button className="bg-green-600 hover:bg-green-700 space-x-2">
+        <Button
+         className="bg-green-600 hover:bg-green-700 space-x-2"
+         onClick={handleAddStudent}
+        >
          <Plus className="h-4 w-4" />
          <span>Add Student</span>
         </Button>
@@ -103,8 +105,8 @@ export default function Students() {
 
       <StudentTable
        students={currentStudents}
-       loading={loading}
-       error={error}
+       loading={isLoading}
+       error={error?.message || ""}
        onEditStudent={handleEditStudent}
        onToggleStatus={handleToggleStatus}
        onViewDetails={handleViewDetails}

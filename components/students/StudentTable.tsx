@@ -132,10 +132,10 @@ const StatusBadge = ({
  return (
   <div className="flex items-center space-x-2">
    <span
-    className={`px-2 py-1 rounded-full text-xs font-medium ${statusMap[status].color}`}
+    className={`px-2 py-1 rounded-full text-xs font-medium ${statusMap?.[status]?.color}`}
    >
     <div className="flex items-center space-x-1">
-     {statusMap[status].icon}
+     {statusMap?.[status]?.icon}
      <span>{status}</span>
     </div>
    </span>

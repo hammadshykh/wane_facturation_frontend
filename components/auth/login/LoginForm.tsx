@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import Image from "next/image";
+import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import {
  Form,
@@ -42,8 +42,8 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   },
  });
 
- const onSubmit = async (values: FormValues) => {
-  try {
+ const loginMutation = useMutation({
+  mutationFn: async (values: Omit<FormValues, "rememberMe">) => {
    const response = await fetch("http://localhost:5000/api/v1/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -53,20 +53,35 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
     }),
    });
 
-   const result = await response.json();
+   if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Login failed");
+   }
 
-   if (result.success) {
+   return response.json();
+  },
+  onSuccess: (data) => {
+   if (data.success) {
     toast.success("✅ Login successful");
     onSuccess?.();
     router.push("/dashboard");
    } else {
-    toast.error(`❌ ${result.error || "Invalid email or password"}`);
+    throw new Error(data.error || "Invalid credentials");
    }
-  } catch (error) {
-   toast.error("❌ Server error. Please try again later.");
-   console.error("Login error:", error);
-  }
+  },
+  onError: (error: Error) => {
+   toast.error(`❌ ${error.message || "Login failed"}`);
+  },
+ });
+
+ const onSubmit = (values: FormValues) => {
+  loginMutation.mutate({
+   email: values.email,
+   password: values.password,
+  });
  };
+
+ const isLoading = loginMutation.isPending;
 
  return (
   <div className="w-full max-w-lg space-y-8">
@@ -91,7 +106,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
          <Input
           placeholder="Enter Email or phone number"
           className="h-12 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-blue-500 w-full"
-          disabled={form.formState.isSubmitting}
+          disabled={isLoading}
           {...field}
          />
         </FormControl>
@@ -110,7 +125,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         <FormControl>
          <PasswordInput
           placeholder="Enter your password"
-          disabled={form.formState.isSubmitting}
+          disabled={isLoading}
           {...field}
          />
         </FormControl>
@@ -128,7 +143,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         <RememberMeCheckbox
          checked={field.value}
          onChange={field.onChange}
-         disabled={form.formState.isSubmitting}
+         disabled={isLoading}
         />
        )}
       />
@@ -136,7 +151,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
        type="button"
        onClick={() => router.push("/auth/forgot-password")}
        className="text-sm text-green-600 hover:text-green-700 font-medium transition-colors"
-       disabled={form.formState.isSubmitting}
+       disabled={isLoading}
       >
        Forgot password?
       </button>
@@ -146,9 +161,9 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
      <Button
       type="submit"
       className="w-full h-12 bg-blue-950 rounded-full hover:bg-blue-900 text-white font-medium transition-colors"
-      disabled={form.formState.isSubmitting}
+      disabled={isLoading}
      >
-      {form.formState.isSubmitting ? "Signing in..." : "SIGN IN"}
+      {isLoading ? "Signing in..." : "SIGN IN"}
      </Button>
     </form>
    </Form>
@@ -160,7 +175,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
      type="button"
      onClick={() => router.push("/signup")}
      className="text-green-600 hover:text-green-700 font-medium transition-colors"
-     disabled={form.formState.isSubmitting}
+     disabled={isLoading}
     >
      Create a Company Account
     </button>

@@ -1,3 +1,5 @@
+import { QueryProvider } from "@/components/providers/provider";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -23,7 +25,20 @@ export default function RootLayout({
  return (
   <html lang="en">
    <body className={inter.className}>
-    <main className="bg-gray-50">{children}</main>
+    <QueryProvider>
+     <NextTopLoader
+      color="#2299DD"
+      initialPosition={0.08}
+      crawlSpeed={200}
+      height={3}
+      easing="ease"
+      speed={200}
+      shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+      zIndex={1600}
+      showAtBottom={false}
+     />
+     <main className="bg-gray-50">{children}</main>
+    </QueryProvider>
     <Toaster position="top-right" richColors /> {/* Add Toaster here */}
    </body>
   </html>

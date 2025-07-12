@@ -1,3 +1,4 @@
+// types/user.ts
 export type UserRole = "Super Admin" | "Admin" | "Viewer";
 export type UserStatus = "Active" | "Inactive";
 
@@ -6,7 +7,7 @@ export interface User {
  name: string;
  email: string;
  role: UserRole;
- status: UserStatus;
+ is_active: boolean;
  avatar?: string;
 }
 
