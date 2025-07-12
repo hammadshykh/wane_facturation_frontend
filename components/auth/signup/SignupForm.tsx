@@ -80,13 +80,10 @@ export const SignupForm = ({ onSuccess }: SignupFormProps) => {
  return (
   <div className="w-full max-w-md space-y-8">
    <div className="space-y-2 text-center">
-    <Image
+    <img
      src="/images/logo_text.png"
      alt="Company Logo"
-     className="h-22 mx-auto"
-     width={200}
-     height={80}
-     priority
+     className="h-32 mx-auto"
     />
    </div>
 
@@ -100,7 +97,11 @@ export const SignupForm = ({ onSuccess }: SignupFormProps) => {
        <FormItem>
         <FormLabel className="text-gray-700 font-medium">Full Name</FormLabel>
         <FormControl>
-         <Input placeholder="Enter your full name" {...field} />
+         <Input
+          className="h-12 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-blue-500 w-full"
+          placeholder="Enter your full name"
+          {...field}
+         />
         </FormControl>
         <FormMessage />
        </FormItem>
@@ -115,7 +116,12 @@ export const SignupForm = ({ onSuccess }: SignupFormProps) => {
        <FormItem>
         <FormLabel className="text-gray-700 font-medium">Email</FormLabel>
         <FormControl>
-         <Input type="email" placeholder="Enter your email" {...field} />
+         <Input
+          type="email"
+          className="h-12 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-blue-500 w-full"
+          placeholder="Enter your email"
+          {...field}
+         />
         </FormControl>
         <FormMessage />
        </FormItem>

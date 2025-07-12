@@ -1,8 +1,16 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+ DropdownMenu,
+ DropdownMenuContent,
+ DropdownMenuItem,
+ DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
 import { ChartData } from "@/types/dashboard";
+import React from "react";
 
 const chartData: ChartData[] = [
  { month: "Jan", students: 45, label: "Jan - 55 Students" },
@@ -21,17 +29,39 @@ const chartData: ChartData[] = [
 
 export const StudentChart = () => {
  const maxStudents = Math.max(...chartData.map((d) => d.students));
+ const timePeriods = ["Weekly", "Monthly", "Yearly"];
+ const [selectedPeriod, setSelectedPeriod] = React.useState("Yearly");
 
  return (
   <Card className="shadow-none border-none rounded-2xl">
    <CardHeader>
     <div className="flex items-center justify-between">
-     <CardTitle className="text-lg font-semibold text-gray-900">
+     <CardTitle className="text-lg font-normal text-gray-900">
       Number Of Students and Review
      </CardTitle>
-     <Button variant="outline" size="sm" className="text-gray-600">
-      This Year
-     </Button>
+     <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+       <Button
+        variant="outline"
+        size="sm"
+        className="text-gray-600 flex items-center gap-2"
+       >
+        {selectedPeriod}
+        <ChevronDown className="h-4 w-4 opacity-50" />
+       </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-60 !rounded-2xl">
+       {timePeriods.map((period) => (
+        <DropdownMenuItem
+         key={period}
+         onClick={() => setSelectedPeriod(period)}
+         className={selectedPeriod === period ? "bg-gray-100" : ""}
+        >
+         {period}
+        </DropdownMenuItem>
+       ))}
+      </DropdownMenuContent>
+     </DropdownMenu>
     </div>
    </CardHeader>
    <CardContent>

@@ -1,14 +1,14 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, AlertCircle, CircleDollarSignIcon } from "lucide-react";
 import { StatsCardProps } from "@/types/dashboard";
+import Image from "next/image";
 
 const statsData: StatsCardProps[] = [
  {
   title: "Total Students",
   value: "3,200",
-  icon: <Users className="h-6 w-6 text-white" />,
+  icon: "users",
   progress: 100,
   description: "All enrolled students",
   gradientFrom: "from-purple-500",
@@ -16,11 +16,12 @@ const statsData: StatsCardProps[] = [
   decorationFrom: "from-purple-200",
   decorationTo: "to-blue-100",
   progressColor: "bg-blue-500",
+  textColor: "blue",
  },
  {
   title: "Paid Students",
   value: "2,450",
-  icon: <CircleDollarSignIcon className="h-6 w-6 text-white" />,
+  icon: "material-symbols_paid-outline",
   progress: 76.5,
   description: "76.5% of total students",
   gradientFrom: "from-green-400",
@@ -28,11 +29,12 @@ const statsData: StatsCardProps[] = [
   decorationFrom: "from-green-100",
   decorationTo: "to-green-100",
   progressColor: "bg-green-400",
+  textColor: "green",
  },
  {
   title: "Unpaid Students",
   value: "750",
-  icon: <AlertCircle className="h-6 w-6 text-white" />,
+  icon: "wallet-remove",
   progress: 23.5,
   description: "23.5% pending payment",
   gradientFrom: "from-red-500",
@@ -40,6 +42,7 @@ const statsData: StatsCardProps[] = [
   decorationFrom: "from-red-200",
   decorationTo: "to-red-100",
   progressColor: "bg-red-500",
+  textColor: "red",
  },
 ];
 
@@ -64,37 +67,40 @@ const StatsCard = ({
  decorationFrom,
  decorationTo,
  progressColor,
+ textColor,
 }: StatsCardProps) => {
  return (
-  <Card className="bg-white border-none shadow-none relative rounded-2xl h-full p0">
+  <Card className="bg-white border-none min-h-[198px] flex flex-col justify-between shadow-none relative rounded-2xl h-full p-0">
    {/* Corner decoration */}
    <div
-    className={`absolute top-0 left-0 w-16 h-16 rounded-t-2xl bg-gradient-to-br ${decorationFrom} ${decorationTo} rounded-br-2xl -z-1`}
+    className={`absolute top-0 left-0 w-20 h-20 opacity-50 rounded-t-2xl bg-gradient-to-br ${decorationFrom} ${decorationTo} rounded-br-2xl -z-1`}
    ></div>
 
    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 relative z-10">
-    <CardTitle className="text-base font-medium text-gray-700">
-     {title}
-    </CardTitle>
+    <div className="space-y-2">
+     <CardTitle className={`text-base font-medium text-${textColor}-600`}>
+      {title}
+     </CardTitle>
+     <div className="text-3xl font-bold text-gray-900 mb-2">{value}</div>
+    </div>
+
     <div
      className={`w-12 h-12 bg-gradient-to-br ${gradientFrom} ${gradientTo} rounded-xl flex items-center justify-center shadow-md`}
     >
-     {icon}
+     <Image src={`/images/${icon}.svg`} alt="icon" width={32} height={24} />
     </div>
    </CardHeader>
 
    <CardContent className="pt-0">
-    <div className="text-3xl font-bold text-gray-900 mb-2">{value}</div>
-
     {/* Progress Bar */}
-    <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+    <div className={`w-full bg-gray-100 rounded-full h-2 mb-2`}>
      <div
-      className={`h-2 rounded-full ${progressColor}`}
+      className={`h-2 rounded-full  ${progressColor}`}
       style={{ width: `${progress}%` }}
      ></div>
     </div>
 
-    <p className="text-sm md:text-base text-gray-600">{description}</p>
+    <p className="text-sm md:text-base text-gray-400">{description}</p>
    </CardContent>
   </Card>
  );

@@ -15,4 +15,6 @@ export type StatsCardProps = {
  decorationFrom: string;
  decorationTo: string;
  progressColor: string;
+ blurColor?: string;
+ textColor: string;
 };

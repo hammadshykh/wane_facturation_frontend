@@ -24,9 +24,6 @@ export const PasswordInput = ({
 
  return (
   <div className="space-y-2">
-   <Label htmlFor="password" className="text-gray-700 font-medium">
-    Password
-   </Label>
    <div className="relative">
     <Input
      name={name}
@@ -36,7 +33,6 @@ export const PasswordInput = ({
      value={value}
      onChange={onChange}
      className="h-12 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-blue-500 pr-12  w-full"
-     required
      disabled={disabled}
     />
     <button

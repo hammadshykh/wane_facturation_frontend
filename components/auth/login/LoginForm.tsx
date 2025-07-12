@@ -70,14 +70,11 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
 
  return (
   <div className="w-full max-w-lg space-y-8">
-   <div className="py-6 text-center">
-    <Image
+   <div className="space-y-2 text-center">
+    <img
      src="/images/logo_text.png"
      alt="Company Logo"
-     className="h-22 mx-auto"
-     width={200}
-     height={80}
-     priority
+     className="h-32 mx-auto"
     />
    </div>
 
@@ -161,7 +158,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
     Do not have an account?{" "}
     <button
      type="button"
-     onClick={() => router.push("/auth/signup")}
+     onClick={() => router.push("/signup")}
      className="text-green-600 hover:text-green-700 font-medium transition-colors"
      disabled={form.formState.isSubmitting}
     >

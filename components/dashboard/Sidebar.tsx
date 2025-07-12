@@ -21,17 +21,25 @@ const menuItems = [
 export const Sidebar = () => {
  return (
   <aside className="w-80 rounded-2xl relative bg-white ">
-   <div className="space-y-2 text-center">
-    <img src="/images/_logo.png" alt="Company Logo" className="h-24 mx-auto" />
+   <div className="p-4 flex items-center justify-center">
+    <Image
+     src="/images/logo-dashboard.svg"
+     alt="Logo"
+     width={200}
+     height={200}
+     className="object-contain"
+    />
    </div>
    <nav className="p-4 space-y-3">
     {menuItems.map((item) => (
      <MenuItem key={item.label} {...item} />
     ))}
-    <Button className=" bg-blue-950 hover:bg-blue-900 text-white flex absolute bottom-0 w-40 items-center justify-center rounded-full mx-auto space-x-2 py-3 ">
-     <LogOut className="w-4 h-4" />
-     <span className="font-medium">LOGOUT</span>
-    </Button>
+    <div className="mx-auto w-40">
+     <Button className=" bg-blue-950 group hover:bg-blue-900 text-white flex absolute bottom-0 w-40 items-center justify-center !self-center rounded-full mx-auto space-x-2 py-3 ">
+      <LogOut className="w-4 h-4 group-hover:-ms-2 transition-all duration-500 rotate-180" />
+      <span className="font-medium">LOGOUT</span>
+     </Button>
+    </div>
    </nav>
   </aside>
  );

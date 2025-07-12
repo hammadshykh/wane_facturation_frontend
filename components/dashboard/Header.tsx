@@ -24,9 +24,51 @@ export const Header = () => {
       <Search className="absolute left-3 top-2.5 text-gray-400 h-4 w-4" />
       <Input
        placeholder="Search"
-       className="pl-10 w-72 h-10 text-sm bg-gray-50 rounded-2xl focus:border-blue-500 focus:ring-blue-500"
+       className="pl-10 w-72  h-10 text-sm bg-gray-50 border-none rounded-2xl focus:border-blue-500 focus:ring-blue-500"
       />
      </div>
+
+     {/* Notifications Dropdown */}
+     <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+       <Button
+        variant="ghost"
+        size="icon"
+        className="relative outline-none rounded-full bg-gray-50 hover:bg-gray-100"
+       >
+        <Bell className="text-gray-600 h-5 w-5" />
+        <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full" />
+       </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-80 !rounded-2xl">
+       <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+       <DropdownMenuSeparator />
+       <DropdownMenuItem>
+        <div className="flex flex-col space-y-1">
+         <p className="text-sm font-medium">New student enrolled</p>
+         <p className="text-xs text-gray-500">
+          John Doe has enrolled in Mathematics course
+         </p>
+        </div>
+       </DropdownMenuItem>
+       <DropdownMenuItem>
+        <div className="flex flex-col space-y-1">
+         <p className="text-sm font-medium">Payment received</p>
+         <p className="text-xs text-gray-500">
+          Payment of $500 received from Sarah Wilson
+         </p>
+        </div>
+       </DropdownMenuItem>
+       <DropdownMenuItem>
+        <div className="flex flex-col space-y-1">
+         <p className="text-sm font-medium">Course completion</p>
+         <p className="text-xs text-gray-500">
+          5 students completed Physics course
+         </p>
+        </div>
+       </DropdownMenuItem>
+      </DropdownMenuContent>
+     </DropdownMenu>
 
      {/* Messages Dropdown */}
      <DropdownMenu>
@@ -34,7 +76,7 @@ export const Header = () => {
        <Button
         variant="ghost"
         size="icon"
-        className="relative rounded-full bg-gray-50 hover:bg-gray-100"
+        className="relative  outline-none rounded-full bg-gray-50 hover:bg-gray-100"
        >
         <Mail className="text-gray-600 h-5 w-5" />
         <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-blue-500 rounded-full" />
@@ -92,55 +134,13 @@ export const Header = () => {
       </DropdownMenuContent>
      </DropdownMenu>
 
-     {/* Notifications Dropdown */}
-     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-       <Button
-        variant="ghost"
-        size="icon"
-        className="relative rounded-full bg-gray-50 hover:bg-gray-100"
-       >
-        <Bell className="text-gray-600 h-5 w-5" />
-        <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full" />
-       </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80 !rounded-2xl">
-       <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-       <DropdownMenuSeparator />
-       <DropdownMenuItem>
-        <div className="flex flex-col space-y-1">
-         <p className="text-sm font-medium">New student enrolled</p>
-         <p className="text-xs text-gray-500">
-          John Doe has enrolled in Mathematics course
-         </p>
-        </div>
-       </DropdownMenuItem>
-       <DropdownMenuItem>
-        <div className="flex flex-col space-y-1">
-         <p className="text-sm font-medium">Payment received</p>
-         <p className="text-xs text-gray-500">
-          Payment of $500 received from Sarah Wilson
-         </p>
-        </div>
-       </DropdownMenuItem>
-       <DropdownMenuItem>
-        <div className="flex flex-col space-y-1">
-         <p className="text-sm font-medium">Course completion</p>
-         <p className="text-xs text-gray-500">
-          5 students completed Physics course
-         </p>
-        </div>
-       </DropdownMenuItem>
-      </DropdownMenuContent>
-     </DropdownMenu>
-
      {/* Settings Dropdown */}
      <DropdownMenu>
       <DropdownMenuTrigger asChild>
        <Button
         variant="ghost"
         size="icon"
-        className="rounded-full bg-gray-50 hover:bg-gray-100"
+        className="rounded-full  outline-none bg-gray-50 hover:bg-gray-100"
        >
         <Settings className="text-gray-600 h-5 w-5" />
        </Button>

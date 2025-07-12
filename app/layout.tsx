@@ -8,6 +8,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
  title: "Wane Facturation - Student Management System",
  description: "Manage Your Students And Their Activities With Ease.",
+ icons: {
+  icon: {
+   url: "/images/logo-dashboard.svg",
+  },
+ },
 };
 
 export default function RootLayout({
