@@ -73,15 +73,18 @@ const StatsCard = ({
   <Card className="bg-white border-none min-h-[198px] flex flex-col justify-between shadow-none relative rounded-2xl h-full p-0">
    {/* Corner decoration */}
    <div
-    className={`absolute top-0 left-0 w-20 h-20 opacity-50 rounded-t-2xl bg-gradient-to-br ${decorationFrom} ${decorationTo} rounded-br-2xl -z-1`}
+    className={`absolute top-0 left-0 w-40 h-20 opacity-60 rounded-t-2xl bg-gradient-to-br ${decorationFrom} ${decorationTo} rounded-br-2xl -z-1 blur-sm`}
    ></div>
 
    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 relative z-10">
     <div className="space-y-2">
-     <CardTitle className={`text-base font-medium text-${textColor}-600`}>
-      {title}
-     </CardTitle>
-     <div className="text-3xl font-bold text-gray-900 mb-2">{value}</div>
+    <CardTitle
+  className={`text-base font-medium text-${textColor}-600`}
+  style={{ fontFamily: 'General Sans, sans-serif' }}
+>
+  {title}
+</CardTitle>
+     <div   style={{ fontFamily: 'General Sans, sans-serif' }} className="text-3xl font-bold text-gray-900 mb-2">{value}</div>
     </div>
 
     <div
@@ -100,7 +103,7 @@ const StatsCard = ({
      ></div>
     </div>
 
-    <p className="text-sm md:text-base text-gray-400">{description}</p>
+    <p   style={{ fontFamily: 'General Sans, sans-serif' }} className="text-sm md:text-base text-gray-400">{description}</p>
    </CardContent>
   </Card>
  );
